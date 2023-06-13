@@ -8,7 +8,6 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface MyButton {
         "disabled": boolean;
-        "focus": () => Promise<void>;
     }
 }
 export interface MyButtonCustomEvent<T> extends CustomEvent<T> {

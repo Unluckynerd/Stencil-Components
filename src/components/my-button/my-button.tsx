@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Method, Prop, h } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'my-button',
@@ -6,14 +6,18 @@ import { Component, Event, EventEmitter, Method, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class MyButton {
+
+  constructor(){
+    this.hostElement.componentOnReady().then(() => {
+      this.hostElement.focus = () => this.buttonRef.focus();
+    });
+  }
+
+  @Element() hostElement;
+
   buttonRef: HTMLButtonElement;
 
   @Prop() disabled = false;
-
-  // Exposing focus method to focus the native button when my-button.focus() is called
-  @Method() async focus() {
-    this.buttonRef.focus();
-  }
 
   @Event() zClick: EventEmitter;
 
