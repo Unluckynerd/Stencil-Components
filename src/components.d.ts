@@ -9,10 +9,17 @@ export namespace Components {
     interface MyButton {
         "disabled": boolean;
     }
+    interface NewButton {
+        "disabled": boolean;
+    }
 }
 export interface MyButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMyButtonElement;
+}
+export interface NewButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLNewButtonElement;
 }
 declare global {
     interface HTMLMyButtonElementEventMap {
@@ -32,8 +39,26 @@ declare global {
         prototype: HTMLMyButtonElement;
         new (): HTMLMyButtonElement;
     };
+    interface HTMLNewButtonElementEventMap {
+        "zClick": any;
+    }
+    interface HTMLNewButtonElement extends Components.NewButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLNewButtonElementEventMap>(type: K, listener: (this: HTMLNewButtonElement, ev: NewButtonCustomEvent<HTMLNewButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLNewButtonElementEventMap>(type: K, listener: (this: HTMLNewButtonElement, ev: NewButtonCustomEvent<HTMLNewButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLNewButtonElement: {
+        prototype: HTMLNewButtonElement;
+        new (): HTMLNewButtonElement;
+    };
     interface HTMLElementTagNameMap {
         "my-button": HTMLMyButtonElement;
+        "new-button": HTMLNewButtonElement;
     }
 }
 declare namespace LocalJSX {
@@ -41,8 +66,13 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         "onZClick"?: (event: MyButtonCustomEvent<any>) => void;
     }
+    interface NewButton {
+        "disabled"?: boolean;
+        "onZClick"?: (event: NewButtonCustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         "my-button": MyButton;
+        "new-button": NewButton;
     }
 }
 export { LocalJSX as JSX };
@@ -50,6 +80,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-button": LocalJSX.MyButton & JSXBase.HTMLAttributes<HTMLMyButtonElement>;
+            "new-button": LocalJSX.NewButton & JSXBase.HTMLAttributes<HTMLNewButtonElement>;
         }
     }
 }
