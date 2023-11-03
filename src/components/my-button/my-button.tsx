@@ -2,7 +2,7 @@ import { Component, Element, Event, EventEmitter, Prop, h } from '@stencil/core'
 
 @Component({
   tag: 'my-button',
-  styleUrl: 'my-button.scss',
+  styleUrl: 'my-button.css',
   shadow: true,
 })
 export class MyButton {
